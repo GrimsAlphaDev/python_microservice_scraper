@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from scraper_scholar import get_scholar_data
 from scraper_garuda import get_publications
+from scraper_sinta import get_sinta_publications
 
 app = Flask(__name__)
 
@@ -22,5 +23,16 @@ def scrape_garuda():
     data = get_publications(garuda_id)
     return jsonify(data)
 
+@app.route('/scrape_sinta', methods=['GET'])
+def scrape_sinta():
+    sinta_id = request.args.get('sinta_id')
+    if not sinta_id:
+        return jsonify({"error": "sinta_id parameter is required"}), 400
+    data = get_sinta_publications(sinta_id)
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.run(debug=True)
+    
+# go to virtual environment venv\Scripts\activate
+# run the app.py
