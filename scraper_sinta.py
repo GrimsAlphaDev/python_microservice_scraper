@@ -26,7 +26,7 @@ def get_sinta_publications(author_id):
     sinta_score_overall = profiles.find("div", class_="pr-num").text.strip()
     sinta_score_3years = profiles.find_all("div", class_="pr-num")[1].text.strip()
     affil_score = profiles.find_all("div", class_="pr-num")[2].text.strip()
-    afiil_score_3years = profiles.find_all("div", class_="pr-num")[3].text.strip()
+    affil_score_3years = profiles.find_all("div", class_="pr-num")[3].text.strip()
 
     # Find the publication elements
     publication_scopus = []
@@ -239,15 +239,7 @@ def get_sinta_publications(author_id):
             .text.strip()
         )
         meta_element = article.find_all("div", class_="ar-meta")[1]
-        # loop get all personils dipisahkan oleh (;)
-        personils = []
-        for personil in meta_element.find_all("a"):
-            personils.append(personil.text.strip())
-
-        # replace ';' with ','
-        personils = ", ".join(personils)
-        # delete spacing in the beginning and end of the string
-        personils = personils.strip()
+        personils = meta_element.find("a").text.strip()
         meta_element2 = article.find_all("div", class_="ar-meta")[2]
         year = meta_element2.find("a", class_="ar-year").text.strip()
         quartile = meta_element2.find("a", class_="ar-quartile").text.strip()
@@ -297,14 +289,7 @@ def get_sinta_publications(author_id):
         )
         meta_element = article.find_all("div", class_="ar-meta")[1]
         # loop get all personils dipisahkan oleh (;)
-        personils = []
-        for personil in meta_element.find_all("a"):
-            personils.append(personil.text.strip())
-
-        # replace ';' with ','
-        personils = ", ".join(personils)
-        # delete spacing in the beginning and end of the string
-        personils = personils.strip()
+        personils = meta_element.find("a").text.strip()
         meta_element2 = article.find_all("div", class_="ar-meta")[2]
         year = meta_element2.find("a", class_="ar-year").text.strip()
         quartile = meta_element2.find("a", class_="ar-quartile").text.strip()
@@ -443,12 +428,12 @@ def get_sinta_publications(author_id):
             "sinta_score_overall": sinta_score_overall,
             "sinta_score_3years": sinta_score_3years,
             "affil_score": affil_score,
-            "afiil_score_3years": afiil_score_3years,
+            "affil_score_3years": affil_score_3years,
             "publications": publications,
-            # "researches": researches,
-            # "communityService": communityService,
-            # "iprs": iprs,
-            # "books": books,
+            "researches": researches,
+            "communityService": communityService,
+            "iprs": iprs,
+            "books": books,
         }
     )
 
